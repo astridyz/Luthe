@@ -1,41 +1,14 @@
-# Compiled Lua sources
-luac.out
+# Ignore .env arquives
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+config.env
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+lit.exe
+luvi.exe
+luvit.exe
 
-# Precompiled Headers
-*.gch
-*.pch
+node_modules
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
+deps
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
+discordia.log
+gateway.json
