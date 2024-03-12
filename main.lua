@@ -1,9 +1,10 @@
 local Discordia = require('discordia')
-local Enum = Discordia.enums
 
 local Client = Discordia.Client()
+local Enum = Discordia.enums
 
 -- Getting configs
+
 local parseEnv = require('Utils.parseEnv')
 local Config = parseEnv:read('config.env')
 
