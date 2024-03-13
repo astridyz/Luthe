@@ -11,6 +11,7 @@ function parseEnv:read(file)
         end
     end
     return env    
+    
 end
 
 return parseEnv
