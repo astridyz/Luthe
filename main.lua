@@ -6,9 +6,9 @@ local Client = Discordia.Client():useApplicationCommands()
 
 -- Configs
 
-local parseEnv = require('Utils.parseEnv')
+local parseEnv = require('utils.parseEnv')
 local Config = parseEnv('config.env')
-local commands = {}
+local commands = require('./packages/astrid_commands@0.0.1').commands
 
 -- First impressions
 
@@ -18,9 +18,8 @@ local function loadCommands()
 
         local command = require('./commands/' .. fileName)
 
-        local commandConfigs = command.getConfigs()
-        Client:createGlobalApplicationCommand(commandConfigs)
-        commands[fileName:sub(1, #fileName - 4)] = command
+        local commandConfigs = command:getConfigs()
+        assert(Client:createGlobalApplicationCommand(commandConfigs), 'Could not load this command')
     end
 
     print('Commands loaded.')

@@ -1,19 +1,17 @@
+local Command = require('../packages/astrid_commands@0.0.1')
 local Discordia_slash = require('discordia-slash')
-local Contructors = Discordia_slash.util.tools()
 
 -- Private
 
-local function reply(_, interaction, args)
+local function Reply(_, interaction, args)
+    print(_, interaction, args)
     interaction:reply('Testing!')
 end
 
-local Meta = {__call = reply, __metatable = 'locked'}
-local Ping = setmetatable({}, Meta)
-
 -- Public
 
-function Ping.getConfigs()
-    return Contructors.slashCommand('ping', 'This command reply something to test!')
-end
+local Ping = Command('Ping', 'Useful for tests I think')
+Ping:setCallback(Reply)
+Ping:setCategory('Useful')
 
 return Ping
