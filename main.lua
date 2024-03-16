@@ -1,31 +1,33 @@
 local Discordia = require('discordia')
 local Discordia_slash = require('discordia-slash')
+local fs = require('fs')
 
 local Client = Discordia.Client():useApplicationCommands()
-local Constructors = Discordia_slash.util.tools()
 
--- Getting configs
+-- Configs
 
 local parseEnv = require('Utils.parseEnv')
-local Config = parseEnv:read('config.env')
-
-local commands = {
-    ping = require('./commands/ping.lua')
-}
+local Config = parseEnv('config.env')
+local commands = {}
 
 -- First impressions
 
 local function loadCommands()
+    -- Command handler
+    for fileName, fileType in fs.scandirSync('./commands') do
 
-    for _, command in pairs(commands) do
-        local commandConfig = command.getConfigs()
-        Client:createGlobalApplicationCommand(commandConfig)
+        local command = require('./commands/' .. fileName)
+
+        local commandConfigs = command.getConfigs()
+        Client:createGlobalApplicationCommand(commandConfigs)
+        commands[fileName:sub(1, #fileName - 4)] = command
     end
-    
-    print('Commands loaded')
+
+    print('Commands loaded.')
 end
 
 -- We need to delete all the previous registered commands and register the new ones
+
 local function deletePreviousCommands()
     local Commands = Client:getGlobalApplicationCommands()
     for CommandId in pairs(Commands) do
@@ -40,11 +42,15 @@ local function Logged()
 
     deletePreviousCommands()
     loadCommands()
-    Client:info('Ready!')
+    print('Ready!')
 end
 
+
+-- Require the command using its name and call it as a function using the metamethod __call
+
 local function commandsCallback(interaction, command, args)
-    commands[command.name]:reply(interaction, args)
+    assert(commands[command.name], 'Didnt find this command')
+    commands[command.name](interaction, args)
 end
 
 -- Client configs
