@@ -18,7 +18,7 @@ local function loadCommands()
 
         local command = require('./commands/' .. fileName)
 
-        local commandConfigs = command:getConfigs()
+        local commandConfigs = command:getSlash()
         assert(Client:createGlobalApplicationCommand(commandConfigs), 'Could not load this command')
     end
 
