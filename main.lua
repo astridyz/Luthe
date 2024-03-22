@@ -8,24 +8,30 @@ local Client = Discordia.Client():useApplicationCommands()
 
 local parseEnv = require('utils.parseEnv')
 local Config = parseEnv('config.env')
-local commands = require('./packages/astrid_commands@0.0.1').commands
+local commands = require('./packages/astrid_commands@0.0.5').commands
 
 -- First impressions
 
 local function loadCommands()
     -- Command handler
-    for fileName, fileType in fs.scandirSync('./commands') do
+    for categoryFile, _ in fs.scandirSync('./commands') do
+        for commandFile, _ in fs.scandirSync('./commands/' .. categoryFile) do
 
-        local command = require('./commands/' .. fileName)
-
+        local command = require('./commands/' .. categoryFile .. '/' .. commandFile)
         local commandConfigs = command:getSlash()
-        assert(Client:createGlobalApplicationCommand(commandConfigs), 'Could not load this command')
+
+        assert(command:setCategory(categoryFile), 'Could not set the category of the command ' .. commandFile)
+        assert(Client:createGlobalApplicationCommand(commandConfigs), 'Could not load the command ' .. commandFile)
+        end
     end
 
     print('Commands loaded.')
 end
 
--- We need to delete all the previous registered commands and register the new ones
+--[[
+    We need to delete all the previous registered commands and register the new ones
+    Not necessary to do this all the time. I'm adding it for testing
+]]
 
 local function deletePreviousCommands()
     local Commands = Client:getGlobalApplicationCommands()
