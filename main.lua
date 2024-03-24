@@ -18,10 +18,9 @@ local function loadCommands()
         for commandFile, _ in fs.scandirSync('./commands/' .. categoryFile) do
 
         local command = require('./commands/' .. categoryFile .. '/' .. commandFile)
-        local commandConfigs = command:getSlash()
 
         assert(command:setCategory(categoryFile), 'Could not set the category of the command ' .. commandFile)
-        assert(Client:createGlobalApplicationCommand(commandConfigs), 'Could not load the command ' .. commandFile)
+        assert(Client:createGlobalApplicationCommand(command:getSlash()), 'Could not load the command ' .. commandFile)
         end
     end
 

@@ -1,7 +1,6 @@
-local Discordia = require('discordia')
 local Discordia_slash = require('discordia-slash')
+local Tools = Discordia_slash.util.tools()
 
-local tools = Discordia_slash.util.tools()
 local Command = require('../../packages/astrid_commands@0.0.5')
 
 -- Private
@@ -24,7 +23,7 @@ Test:setCallback(Reply)
 ]]
 
 Test:addSlashOption(
-	tools.user('who', 'Sir or maam to excuse.')
+	Tools.user('who', 'Sir or maam to excuse.')
 )
 
 Test:setPermissions('banMembers', 'manageGuild') -- Check enum.permissions for options
