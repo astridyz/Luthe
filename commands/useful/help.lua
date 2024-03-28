@@ -1,7 +1,7 @@
 local Discordia_slash = require('discordia-slash')
 local Tools = Discordia_slash.util.tools()
 
-local Command = require('../../packages/astrid_commands@0.0.5')
+local Command = require('astrid-commands')
 
 -- Private
 

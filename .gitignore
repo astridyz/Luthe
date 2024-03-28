@@ -7,6 +7,9 @@ luvi.exe
 luvit.exe
 packages
 
+luarocks.exe
+luarocks-admin.exe
+
 deps
 
 discordia.log

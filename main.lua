@@ -8,7 +8,7 @@ local Client = Discordia.Client():useApplicationCommands()
 
 local parseEnv = require('utils.parseEnv')
 local Config = parseEnv('config.env')
-local commands = require('./packages/astrid_commands@0.0.5').commands
+local commands = require('astrid-commands').commands
 
 -- First impressions
 
