@@ -3,7 +3,7 @@ local Tools = Discordia_slash.util.tools()
 
 local Command = require('astrid-commands')
 
--- Private
+--// Private
 
 local function getAllCommands()
     local description = ''
@@ -21,17 +21,17 @@ local function Reply(interaction, args)
     if args then
         local command = Command.commands[args.command]
         if command then
-            interaction:reply { -- If there's a command with this name
+            interaction:reply { --// If there's a command with this name
                 embed = {
                     author = { name = args.command:gsub("^%l", string.upper) },
                     description = '**Name:** ' .. command.name .. '\n**Description:** ' .. command.description,
                     color = 0x874F9F
                 }
             }
-        else -- If there's *not* a command with this name
+        else --// If there's *not* a command with this name
             interaction:reply('There is no command called ' .. args.command)
         end
-    else -- if the command wasnt executed using an argument
+    else --// if the command wasnt executed using an argument
 	interaction:reply {
         embed = {
             author = {
@@ -44,7 +44,7 @@ local function Reply(interaction, args)
     end
 end
 
--- Public
+--// Public
 
 local Help = Command('help', 'This is a help command.')
 
