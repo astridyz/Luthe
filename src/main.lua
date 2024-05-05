@@ -7,7 +7,7 @@ local Client = Discordia.Client():useApplicationCommands()
 
 local parseEnv = require('utils.parseEnv')
 local Config = parseEnv('../config.env')
-local commands = require('astrid-commands').commands
+local commands = require('astrid-commands')
 
 --// First impressions
 
@@ -43,7 +43,7 @@ end
 local function Logged()
     print('Connected as ' .. Client.user.username)
 
-    deletePreviousCommands()
+    --// deletePreviousCommands()
     loadCommands()
     print('Ready!')
 end
@@ -51,8 +51,9 @@ end
 --// Require the command using its name and call it as a function using the metamethod __call
 
 local function commandsCallback(interaction, command, args)
-    assert(commands[command.name], 'Didnt find this command')
-    commands[command.name](interaction, args)
+    assert(commands.get(command.name), 'Didnt find this command')
+
+    commands.get(command.name):callback(interaction, args)
 end
 
 --// Client configs
