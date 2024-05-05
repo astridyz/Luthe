@@ -48,7 +48,7 @@ local function Logged()
     print('Ready!')
 end
 
---// Require the command using its name and call it as a function using the metamethod __call
+--// Require the command using its name and call it the method :callback()
 
 local function commandsCallback(interaction, command, args)
     assert(commands.get(command.name), 'Didnt find this command')
